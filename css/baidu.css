@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*a{
+    padding-right: 15px;
+    font-weight:bold;
+    background-color: #fff;
+    color:black;
+}*/
+.bri {
+    display: inline-block;
+
+    right: 10px;
+    width: 60px;
+    height: 24px;
+
+    color: #fff;
+    background: #38f;
+    line-height: 24px;
+    font-size: 13px;
+    text-align: center;
+    overflow: hidden;
+    /*border-bottom: 1px solid #38f;*/
+    margin-left: 19px;
+    margin-right: 2px;
+    float: left;
+}
+.ee{
+
+}
+.ll-wrap {
+    text-align: right;
+}
+.ll {
+    text-align: right;
+    padding:30px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.ll > a {
+    color: #333;
+    font-weight: 700;
+    line-height: 24px;
+    margin-left: 20px;
+    font-size: 13px;
+    text-decoration: underline;
+    float: left;
+}
+.ll > a:hover {
+    color: blue;
+}
+.ll a.ww{
+    font-weight: normal;
+}
+
+.logo {
+    width: 270px;
+    height: 129px;
+    cursor: pointer;
+}
+.suto-btn{
+    background: #fff url("../img/camera_new_5606e8f.png") no-repeat 0 0/90%;
+    display: inline-block;
+    width: 20px;
+    height: 16px;
+    position: absolute;
+    z-index: 1;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    /*transition: all .3s linear;*/
+}
+.suto-btn:hover {
+    cursor: pointer;
+    background-position-y: -20px;
+}
+.control-wrapper {
+    clear: both;
+    overflow: hidden;
+    width: 641px;
+    margin: 30px auto 0;
+}
+.control{
+    box-sizing: border-box;
+    width:540px;
+    height:36px;
+    outline: none;
+    border: 1px solid #b6b6b6;
+}
+.control:focus {
+    border-color: #317ef3;
+}
+.btn-primary{
+    width:100px;
+    height:36px;
+    background-color:#317ef3;
+    border: 1px solid #317ef3;
+    transition: all .3s linear;
+    color:#fff;
+    cursor: pointer;
+    box-sizing: border-box;
+    float: left;
+    font-size: 15px;
+}
+.btn-primary:hover{
+    box-shadow: 1px 1px 1px #ccc;
+
+}
+.control-item {
+    float: left;
+    position: relative;
+}
+

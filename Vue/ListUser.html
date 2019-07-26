@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>已注册用户</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+<div id="vue">
+    <button @click="handle()">查看已注册用户</button>
+    <button><a href="login.html">返回登录</a></button>
+    <button><a href="register.html">返回注册</a></button>
+    <div v-for="(this.msg1,n) in list1">
+    </div>
+    <div v-for="(this.msg2,n) in list2">
+    </div>
+</div>
+
+<script type="text/javascript">
+    var rm=new Vue()({
+        el: '#vue',
+        data: {
+            list1: [],
+            list2: [],
+        },
+        methods:{
+            handle:function(){
+                this.msg1=document.getElementById("Name");
+                this.msg2=document.getElementById("Pass");
+                document.write(this.msg1);
+                this.list1.push(this.msg1);
+                this.list2.push(this.msg2);
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

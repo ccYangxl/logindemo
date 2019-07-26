@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="./vue.js"></script>
+</head>
+
+<style>
+    .h2{
+        text-align: center;
+        color:red;
+    }
+    .div{
+        height:200px;
+        width:400px;
+        background-color: #b6b6b6;
+        margin: 200px auto;
+        border:1px beige;
+    }
+    .body{
+        background-color: cadetblue;
+    }
+</style>
+
+
+<body class="body">
+<div id="app">
+    <div class="div">
+        <h2 class="h2">注册</h2>
+        <p align="center">账号:<input id="nameValue" v-model="list"/></p>
+        <p align="center">密码:<input id="passValue" v-model="list"/></p>
+        <div align="center">
+            <button type="submit"><a v-bind:href="url">返回登录</a></button>
+            <button @click="signUp()">确定</button>
+        </div>
+        <div v-if="this.name.length==0||this.pass.length==0">
+            <p align="center">请输入账户密码</p>
+        </div>
+        <div v-else-if="this.pass.length<4" >
+            <p align="center">请重新输入密码</p>
+        </div>
+        <div v-else>
+            <p align="">注册成功</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            nameValue:'',
+            passValue:'',
+            url:"login.html",
+            x:'',
+            y:'',
+            name:'',
+            pass:'',
+        },
+        methods:{
+            signUp:function() {
+                this.x=document.getElementById("nameValue").value;
+                this.y=document.getElementById("passValue").value;
+                localStorage.setItem("Name",this.x);
+                localStorage.setItem("Pass",this.y);
+                this.name=localStorage.getItem("Name");
+                this.pass=localStorage.getItem("Pass");
+                alert("账号:"+this.name+"\n"+"密码:"+this.pass);
+                if(this.name.length==null){
+                    alert("请输入账户名！");
+                    //theForm.x.focus();
+                    return false;
+                }
+                if(this.pass.length<4){
+                    alert("密码不少于4个字符");
+                }
+                else{
+                    alert("注册成功！");
+                    window.location.href = 'login.html';
+                }
+            },
+
+        }
+
+    })
+
+</script>
+
+</body>
+</html>
