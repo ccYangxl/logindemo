@@ -3,35 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>已注册用户</title>
-    <script src="./vue.js"></script>
+    <script src="./vue.js" rel="stylesheet" type="text/javascript"></script>
+    <script src="register.html"></script>
+    <script src="login.html"></script>
 </head>
 
 <body>
-<div id="vue">
-    <button @click="handle()">查看已注册用户</button>
-    <button><a href="login.html">返回登录</a></button>
-    <button><a href="register.html">返回注册</a></button>
-    <div v-for="(this.msg1,n) in list1">
-    </div>
-    <div v-for="(this.msg2,n) in list2">
-    </div>
+<div id="apple">
+    <template>
+        <button @click="handle()">查看已注册用户</button>
+        <button><a href="login.html">返回登录</a></button>
+        <button><a href="register.html">返回注册</a></button>
+        <ul>
+            <li v-for="(item, key) of list" :key="key" @click="handleDelete(key)">
+                {{ key + 1 }}: {{ item.name }} {{ item.pw }}
+            </li>
+        </ul>
+    </template>
 </div>
 
-<script type="text/javascript">
-    var rm=new Vue()({
-        el: '#vue',
+<script>
+    new Vue({
+        el: '#apple',
         data: {
-            list1: [],
-            list2: [],
+            list:[],
         },
         methods:{
             handle:function(){
-                this.msg1=document.getElementById("Name");
-                this.msg2=document.getElementById("Pass");
-                document.write(this.msg1);
-                this.list1.push(this.msg1);
-                this.list2.push(this.msg2);
+
+                // 1. 获取用户列表
+                var list = window.localStorage.getItem('USER_LIST');
+                list = list ? JSON.parse(list) : [];
+
+                // 2. 循环展示
+                this.list = list;
+            },
+
+            //3. 通过下标删除用户
+            handleDelete:function(index){
+                var r = confirm('确认要删除用hu？');
+                if (r) {
+                    this.list.splice(index,1);
+
+                    // 获取已经保存的用户列表
+                    var list = window.localStorage.getItem('USER_LIST');
+                    list = list ? JSON.parse(list) : [];
+
+                    // 删除要删除的用户
+                    list.splice(index,1);
+
+                    // 重新保存用户列表
+                    list = JSON.stringify(list);
+                    window.localStorage.setItem('USER_LIST', list);
+                }
             }
+
         }
     })
 

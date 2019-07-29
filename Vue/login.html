@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <script src="./vue.js"></script>
+    <script src="ListUser.html"></script>
 </head>
 
 <style>
@@ -21,15 +22,14 @@
     .body{
         background-color: antiquewhite;
     }
-
 </style>
 
 <body class="body">
 <div id="app">
     <div class="div">
         <h2 class="h2">登录</h2>
-        <p align="center">账号:<input id="userName"/></p>
-        <p align="center">密码:<input id="userPass"/></p>
+        <p align="center">账号:<input id="userName" v-model="usr"/></p>
+        <p align="center">密码:<input type="password" id="userPass" v-model="pw"/></p>
         <div align="center">
             <button type="submit"><a v-bind:href="url">返回注册</a></button>
             <button @click="signIn()">确定</button>
@@ -41,28 +41,30 @@
     var vm=new Vue({
         el:'#app',
         data:{
-            n:'',
-            m:'',
-            uName:'',
-            uPass:'',
-            url:'register.html',
+            usr: '',
+            pw: '',
+            url:'register.html'
         },
         methods:{
             signIn:function(){
-                this.n=document.getElementById("userName").value;
-                this.m=document.getElementById("userPass").value;
-                this.uName=localStorage.getItem("Name");
-                this.uPass=localStorage.getItem("Pass");
-                if(this.n !==this.uName){
-                    alert("该用户不存在");
+
+                // 1. 先获取用户列表 用以判断用户是否存在
+                var list = window.localStorage.getItem('USER_LIST');
+                list = list ? JSON.parse(list) : [];
+
+                // 2. 循环列表，对比输入的账号密码是否正确
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].name === this.usr && list[i].pw === this.pw) {
+                        // 3. 正确 - 登录成功
+                        alert('登录成功！');
+                        window.location.href = 'listUser.html';
+                        return;
+                    }
                 }
-                else if(this.m !==this.uPass){
-                    alert("密码错误")
-                }
-                else{
-                    alert("登陆成功");
-                    window.location.href = 'ListUser.html';
-                }
+
+                // 4. 错误 - 登录失败
+                alert('用户不存在或密码错误！');
+
             }
         }
     })

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>注册</title>
     <script src="./vue.js"></script>
+    <script src="ListUser.html"></script>
 </head>
 
 <style>
@@ -28,59 +29,68 @@
 <div id="app">
     <div class="div">
         <h2 class="h2">注册</h2>
-        <p align="center">账号:<input id="nameValue" v-model="list"/></p>
-        <p align="center">密码:<input id="passValue" v-model="list"/></p>
+        <p align="center">账号:<input id="nameValue" v-model="nameValue" /></p>
+        <p align="center">密码:<input type="password" id="passValue" v-model="passValue"/></p>
         <div align="center">
             <button type="submit"><a v-bind:href="url">返回登录</a></button>
             <button @click="signUp()">确定</button>
         </div>
-        <div v-if="this.name.length==0||this.pass.length==0">
+        <!--<div v-if="this.name.length==0||this.pass.length==0">
             <p align="center">请输入账户密码</p>
         </div>
         <div v-else-if="this.pass.length<4" >
             <p align="center">请重新输入密码</p>
-        </div>
-        <div v-else>
-            <p align="">注册成功</p>
-        </div>
+        </div>-->
+<!--        <div v-else>-->
+<!--            <p align="">注册成功</p>-->
+<!--        </div>-->
     </div>
 
 </div>
 
 <script>
-    var vm=new Vue({
-        el:'#app',
-        data:{
-            nameValue:'',
-            passValue:'',
-            url:"login.html",
-            x:'',
-            y:'',
-            name:'',
-            pass:'',
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            nameValue: '',
+            passValue: '',
+            url: 'login.html'
         },
         methods:{
-            signUp:function() {
-                this.x=document.getElementById("nameValue").value;
-                this.y=document.getElementById("passValue").value;
-                localStorage.setItem("Name",this.x);
-                localStorage.setItem("Pass",this.y);
-                this.name=localStorage.getItem("Name");
-                this.pass=localStorage.getItem("Pass");
-                alert("账号:"+this.name+"\n"+"密码:"+this.pass);
-                if(this.name.length==null){
-                    alert("请输入账户名！");
-                    //theForm.x.focus();
-                    return false;
-                }
-                if(this.pass.length<4){
-                    alert("密码不少于4个字符");
-                }
-                else{
-                    alert("注册成功！");
-                    window.location.href = 'login.html';
-                }
+            trim: function(v) {
+                return v;
             },
+            signUp: function() {
+
+                // 多用户存储
+                var name = this.trim(this.nameValue),
+                    pw = this.trim(this.passValue);
+
+                // 1. 先获取之前用户 用以判断是否已注册
+                var list = window.localStorage.getItem('USER_LIST');
+                list = list ? JSON.parse(list) : [];
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].name === name) {
+                        // 3. 已经注册 提示已注册并跳转登录页
+                        alert('用户' + name + '已注册');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                }
+
+                // 2. 没有注册 为本地存储数组新增一个用户对象
+                var user = {
+                    name: name,
+                    pw: pw
+                };
+                list.push(user);
+                list = JSON.stringify(list);
+                window.localStorage.setItem('USER_LIST', list);
+                alert('注册成功！');
+                window.location.href = 'login.html';
+
+
+            }
 
         }
 
